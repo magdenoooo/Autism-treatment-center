@@ -1,19 +1,27 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
+
+export default function ContactPage(): JSX.Element {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
     subject: '',
     message: ''
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -21,7 +29,7 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     // Simulate form submission
     setIsSubmitted(true);
     setTimeout(() => {
@@ -222,6 +230,7 @@ export default function ContactPage() {
                 </div>
 
                 <button
+                  type="button"
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse shadow-lg cursor-pointer"
                   onClick={handleSubmit}
                 >
@@ -232,7 +241,7 @@ export default function ContactPage() {
                 <p className="text-sm text-gray-500 text-center">
                   سنقوم بالرد على رسالتك خلال 24 ساعة من استلامها
                 </p>
-                </div>
+              </div>
             )}
           </div>
         </div>
